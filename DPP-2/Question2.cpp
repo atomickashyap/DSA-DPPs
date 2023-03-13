@@ -86,44 +86,27 @@ void init_code() {
 -----------------------------------------------------------------------------*/
 // Main Code
 
-void rotate(vector<vector<int> >& v)
-{
-    int n = v.size();
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < i; j++) {
-            swap(v[i][j], v[j][i]);
-        }
+bool isPalindrome(string s) {
+    int n = s.length();
+    if (n == 1) return true;
+    string str = "";
+    for (int i = 0; i < n; i++) if (isalnum(s[i])) str += s[i];
+    transform(str.begin(), str.end(), str.begin(), ::toupper);
+
+    int i = 0, j = str.length() - 1;
+
+    while (i < j) {
+        if (str[i] != str[j]) return false;
+        i++, j--;
     }
-
-    for (int i = 0; i < n / 2; i++) {
-        for (int j = 0; j < n; j++) {
-            swap(v[i][j], v[n - i - 1][j]);
-        }
-    }
-
-
+    return true;
 }
 
 int main() {
     fast_io;
     init_code();
-    int n; cin >> n;
-    vector<vector<int>> v(n);
-    loop(i, n)
-    {
-        loop(j, n)
-        {
-            int t; cin >> t; v[i].pb(t);
-        }
-    }
-    rotate(v);
-    for (auto it : v)
-    {
-        for (auto it2 : it)
-        {
-            cout << it2 << " ";
-        }
-        el;
-    }
+    string str;
+    getline(cin, str);
+    (isPalindrome(str) == true) ? cout << "YES" : cout << "NO";
     return 0;
 }
